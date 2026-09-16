@@ -77,5 +77,6 @@ src/
 
 - Only the main movie/show pages are handled — list, search and grid pages are not (yet).
 - One Radarr and one Sonarr instance are supported.
-- If the site markup changes and no anchor is found, the button falls back to a floating
-  pill in the bottom-right corner so it keeps working.
+- The button is injected inline into the page's `<h1>`, right after the title. If no
+  heading is found (e.g. after a site redesign) it falls back to a floating pill in the
+  bottom-right corner so it keeps working.

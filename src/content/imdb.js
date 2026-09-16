@@ -44,8 +44,11 @@
   }
 
   function heroTitle() {
-    const h1 = document.querySelector('h1[data-testid="hero__pageTitle"], [data-testid="hero-title-block__title"], h1');
-    return h1 ? h1.textContent.trim() : '';
+    const h1 = pageHeading();
+    if (!h1) return '';
+    const clone = h1.cloneNode(true);
+    clone.querySelectorAll('#add2arr-root').forEach((n) => n.remove());
+    return clone.textContent.replace(/\s+/g, ' ').trim();
   }
 
   function heroYear() {
@@ -89,56 +92,18 @@
     return document.querySelector('h1[data-testid="hero__pageTitle"], [data-testid="hero-title-block__title"], h1');
   }
 
-  /**
-   * The metadata row ("TV Series · 2014–2019 · TV-MA · 30m"). IMDb renames its
-   * test ids and CSS classes regularly, so fall back to finding the first short
-   * list after the heading that looks like title metadata.
-   */
-  function findMetadataList(h1) {
-    const tagged = document.querySelector('[data-testid="hero-title-block__metadata"]');
-    if (tagged) return tagged;
-    if (!h1) return null;
-
-    const scope = h1.closest('section, main') || document.body;
-    for (const list of scope.querySelectorAll('ul')) {
-      if (!(h1.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
-      if (list.children.length < 2) continue;
-      const text = list.textContent.replace(/\s+/g, ' ').trim();
-      if (!text || text.length > 120) continue;
-      if (!/(19|20)\d{2}/.test(text) && !/\d+\s*[hm]\b|TV (Series|Mini|Movie|Episode)/i.test(text)) continue;
-      return list;
-    }
-    return null;
-  }
-
+  // Sits inline inside the <h1>, right after the title text. The button lives
+  // in a shadow root, so it never leaks into the heading's textContent.
   function mount(host) {
     if (host.isConnected) return true;
-
     const h1 = pageHeading();
+    if (!h1) return false;
 
-    // Preferred: inline at the end of the metadata row.
-    const metadata = findMetadataList(h1);
-    if (metadata) {
-      host.dataset.compact = '';
-      host.style.margin = '0 0 0 16px';
-      host.style.alignSelf = 'center';
-      host.style.flex = 'none';
-      metadata.appendChild(host);
-      return true;
-    }
-
-    // Fallback: below the title block. Insert after the heading's wrapper
-    // rather than the heading itself, which sits in a clipped row.
-    const block = h1 && h1.parentElement && h1.parentElement !== document.body ? h1.parentElement : h1;
-    if (block && block.parentElement) {
-      delete host.dataset.compact;
-      host.style.margin = '12px 0 4px';
-      host.style.alignSelf = '';
-      host.style.flex = '';
-      block.insertAdjacentElement('afterend', host);
-      return true;
-    }
-    return false;
+    host.dataset.compact = '';
+    host.style.margin = '0 0 0 14px';
+    host.style.verticalAlign = 'middle';
+    h1.appendChild(host);
+    return true;
   }
 
   window.Add2Arr.createController({ detect, mount });

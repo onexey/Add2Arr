@@ -45,7 +45,7 @@
         if (match) year = Number(match[0]);
       }
       const clone = h1.cloneNode(true);
-      clone.querySelectorAll('.year, .certification, sup, .tagline').forEach((n) => n.remove());
+      clone.querySelectorAll('.year, .certification, sup, .tagline, #add2arr-root').forEach((n) => n.remove());
       title = clone.textContent.replace(/\s+/g, ' ').trim() || null;
     }
 
@@ -75,24 +75,18 @@
     };
   }
 
-  const APPEND_ANCHORS = ['#summary-wrapper .action-buttons', '.action-buttons', '#info-wrapper .action-buttons'];
-  const AFTER_ANCHORS = ['#summary-wrapper h1', '.mobile-title h1', '#info-wrapper h1', 'h1'];
+  const HEADINGS = ['#summary-wrapper h1', '.mobile-title h1', '#info-wrapper h1', 'h1'];
 
+  // Sits inline inside the <h1>, right after the title/year text.
   function mount(host) {
     if (host.isConnected) return true;
-
-    for (const selector of APPEND_ANCHORS) {
-      const anchor = document.querySelector(selector);
-      if (!anchor) continue;
-      host.style.margin = '0 0 8px 8px';
-      anchor.appendChild(host);
-      return true;
-    }
-    for (const selector of AFTER_ANCHORS) {
-      const anchor = document.querySelector(selector);
-      if (!anchor || !anchor.parentElement) continue;
-      host.style.margin = '10px 0';
-      anchor.insertAdjacentElement('afterend', host);
+    for (const selector of HEADINGS) {
+      const h1 = document.querySelector(selector);
+      if (!h1) continue;
+      host.dataset.compact = '';
+      host.style.margin = '0 0 0 14px';
+      host.style.verticalAlign = 'middle';
+      h1.appendChild(host);
       return true;
     }
     return false;
