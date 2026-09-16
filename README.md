@@ -71,7 +71,50 @@ src/
   lib/arr.js                     Radarr/Sonarr v3 API client
   lib/storage.js                 settings schema + defaults
   options/                       settings UI
+scripts/                         calver / packaging / store upload
+.github/workflows/release.yml    CalVer release automation
 ```
+
+## Releasing
+
+Versions are **CalVer**: `YYYY.M.D.BUILD` (e.g. `2026.9.16.0`). Components are unpadded
+because the Chrome Web Store requires integers of 0–65535 with no leading zeros. `BUILD`
+counts releases already cut today, so several are possible per day.
+
+```bash
+scripts/calver.sh                     # print the next version
+scripts/package.sh                    # build dist/add2arr-<version>.zip
+scripts/package.sh 2026.9.16.1        # ...with an explicit version
+```
+
+`package.sh` patches the version inside the build copy only — the `version` in the
+committed `manifest.json` is just a placeholder and the working tree is never modified, so
+CI never has to commit back to `main`.
+
+### Automation
+
+`.github/workflows/release.yml`:
+
+- **every push to `main`** (excluding markdown-only changes, or commits containing
+  `[skip release]`) builds the zip and publishes a tagged GitHub release with generated
+  notes;
+- **Chrome Web Store upload is deliberately manual** — run the workflow via
+  *Actions → Release → Run workflow* with **publish** ticked. Pushing every commit into the
+  store would queue a human review each time.
+
+Store uploads need these repository secrets on a `chrome-web-store`
+[environment](https://docs.github.com/actions/deployment/targeting-different-environments):
+`CWS_EXTENSION_ID`, `CWS_CLIENT_ID`, `CWS_CLIENT_SECRET`, `CWS_REFRESH_TOKEN`
+(OAuth scope `https://www.googleapis.com/auth/chromewebstore`). Locally:
+
+```bash
+PUBLISH=true scripts/publish-cws.sh dist/add2arr-2026.9.16.0.zip
+```
+
+Omit `PUBLISH=true` to upload a draft without submitting for review.
+
+See [STORE-LISTING.md](STORE-LISTING.md) for the listing copy and permission
+justifications, and [PRIVACY.md](PRIVACY.md) for the privacy policy.
 
 ## Notes & limitations
 
