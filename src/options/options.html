@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AddToArr settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AddToArr</h1>
+      <p>Adds a one-click “Add to Radarr / Sonarr” button to IMDb and Trakt.tv pages.</p>
+    </header>
+
+    <main>
+      <section class="card" data-service="radarr">
+        <h2>Radarr <span class="subtitle">movies</span></h2>
+
+        <div class="row">
+          <label>
+            <span>Server URL</span>
+            <input type="url" name="url" placeholder="http://localhost:7878" spellcheck="false" />
+          </label>
+          <label>
+            <span>API key</span>
+            <input type="password" name="apiKey" placeholder="Settings → General → API Key" spellcheck="false" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" data-action="connect" class="primary">Connect &amp; load settings</button>
+          <span class="status" data-role="status"></span>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Quality profile</span>
+            <select name="qualityProfileId" disabled></select>
+          </label>
+          <label>
+            <span>Root folder</span>
+            <select name="rootFolderPath" disabled></select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Minimum availability</span>
+            <select name="minimumAvailability">
+              <option value="announced">Announced</option>
+              <option value="inCinemas">In cinemas</option>
+              <option value="released" selected>Released</option>
+            </select>
+          </label>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="monitored" checked /> <span>Monitor</span></label>
+            <label class="check"><input type="checkbox" name="searchOnAdd" checked /> <span>Search on add</span></label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" data-action="save" class="primary">Save Radarr</button>
+          <button type="button" data-action="clear" class="ghost">Clear</button>
+          <span class="status" data-role="saved"></span>
+        </div>
+      </section>
+
+      <section class="card" data-service="sonarr">
+        <h2>Sonarr <span class="subtitle">TV shows</span></h2>
+
+        <div class="row">
+          <label>
+            <span>Server URL</span>
+            <input type="url" name="url" placeholder="http://localhost:8989" spellcheck="false" />
+          </label>
+          <label>
+            <span>API key</span>
+            <input type="password" name="apiKey" placeholder="Settings → General → API Key" spellcheck="false" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" data-action="connect" class="primary">Connect &amp; load settings</button>
+          <span class="status" data-role="status"></span>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Quality profile</span>
+            <select name="qualityProfileId" disabled></select>
+          </label>
+          <label>
+            <span>Root folder</span>
+            <select name="rootFolderPath" disabled></select>
+          </label>
+        </div>
+
+        <div class="row" data-role="languageRow" hidden>
+          <label>
+            <span>Language profile <em>(Sonarr v3)</em></span>
+            <select name="languageProfileId" disabled></select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Series type</span>
+            <select name="seriesType">
+              <option value="standard" selected>Standard</option>
+              <option value="anime">Anime</option>
+              <option value="daily">Daily</option>
+            </select>
+          </label>
+          <label>
+            <span>Monitor</span>
+            <select name="monitor">
+              <option value="all" selected>All episodes</option>
+              <option value="future">Future episodes</option>
+              <option value="firstSeason">First season</option>
+              <option value="latestSeason">Latest season</option>
+              <option value="missing">Missing episodes</option>
+              <option value="existing">Existing episodes</option>
+              <option value="none">None</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="seasonFolder" checked /> <span>Season folders</span></label>
+            <label class="check"><input type="checkbox" name="monitored" checked /> <span>Monitor</span></label>
+            <label class="check"><input type="checkbox" name="searchOnAdd" checked /> <span>Search on add</span></label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" data-action="save" class="primary">Save Sonarr</button>
+          <button type="button" data-action="clear" class="ghost">Clear</button>
+          <span class="status" data-role="saved"></span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Your API keys stay in this browser profile (<code>chrome.storage.local</code>) and are only
+        sent to the server URLs you configure.
+      </p>
+    </footer>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>
