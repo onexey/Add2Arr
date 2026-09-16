@@ -15,6 +15,12 @@ build/
 *.crx
 *.pem
 
+# Raw full-window captures: these show the browser's tab and bookmarks bars,
+# so only the cropped versions in screenshots/store/ are committed.
+/screenshots/*.png
+/screenshots/*.jpg
+/screenshots/*.jpeg
+
 # Scratch space
 .tmp/
 tmp/

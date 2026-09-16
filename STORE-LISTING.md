@@ -150,18 +150,35 @@ https://github.com/onexey/Add2Arr/blob/main/PRIVACY.md
 | Asset | Size | Required | Status |
 | --- | --- | --- | --- |
 | Store icon | 128×128 PNG | Yes | `icons/icon128.png` |
-| Screenshots | 1280×800 or 640×400 PNG/JPEG, 1–5 | Yes | **TODO** |
+| Screenshots | 1280×800 PNG, 1–5 | Yes | `screenshots/store/` |
 | Small promo tile | 440×280 | No | optional |
 | Marquee promo tile | 1400×560 | No | optional |
 
-Suggested screenshots:
+The store accepts at most 5 screenshots. Recommended order — lead with the two states of
+the button, since that is the whole product:
 
-1. An IMDb title page showing the "Add to Sonarr" button next to the title.
-2. The same page showing the green "In Sonarr" state.
-3. A Trakt.tv movie page with the "Add to Radarr" button.
-4. The options page, connected, with the quality profile and root folder dropdowns filled.
+1. `imdb-movie-add-to-radarr.png` — the "Add to Radarr" button on an IMDb film.
+2. `imdb-movie-in-radarr.png` — the same film showing the green "In Radarr" state.
+3. `trakt-series-add-to-sonarr.png` — "Add to Sonarr" on a Trakt show.
+4. `trakt-series-in-sonarr.png` — the green "In Sonarr" state on Trakt.
+5. A screenshot of the **options page**, connected, with the quality profile and root
+   folder dropdowns populated. **TODO** — blur or replace the API key first.
 
-Blur or replace the API key before screenshotting the options page.
+Also available: `imdb-series-add-to-sonarr.png`, `trakt-movie-add-to-radarr.png`,
+`trakt-movie-in-radarr.png`, and `trakt-not-configured.png` (the "Set up Sonarr" prompt).
+
+### Regenerating
+
+Raw full-window captures are **not committed** — they include the browser's tab and
+bookmarks bars. Crop them with:
+
+```bash
+scripts/crop-screenshot.sh imdb  screenshots/raw.jpeg screenshots/store/name.png
+scripts/crop-screenshot.sh trakt screenshots/raw.jpeg screenshots/store/name.png
+```
+
+The script strips all browser chrome, scales to 1280 wide and pads to exactly 1280×800 in
+the page's own background colour, so the padding is invisible.
 
 ---
 
