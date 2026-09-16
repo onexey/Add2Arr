@@ -1,4 +1,4 @@
-/* IMDb title pages: detect the title and mount the AddToArr button. */
+/* IMDb title pages: detect the title and mount the Add2Arr button. */
 (() => {
   const TYPE_MAP = {
     Movie: 'movie',
@@ -103,5 +103,5 @@
     return false;
   }
 
-  window.AddToArr.createController({ detect, mount });
+  window.Add2Arr.createController({ detect, mount });
 })();

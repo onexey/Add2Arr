@@ -1,4 +1,4 @@
-/* Trakt.tv movie and show pages: detect the title and mount the AddToArr button. */
+/* Trakt.tv movie and show pages: detect the title and mount the Add2Arr button. */
 (() => {
   function pageTarget() {
     // Only the main movie/show summary pages (not seasons, episodes, comments…).
@@ -98,5 +98,5 @@
     return false;
   }
 
-  window.AddToArr.createController({ detect, mount });
+  window.Add2Arr.createController({ detect, mount });
 })();

@@ -30,7 +30,7 @@ export async function ensurePermission(url) {
   const granted = await chrome.permissions.contains({ origins: [pattern] });
   if (!granted) {
     throw new ArrError(
-      `AddToArr is not allowed to reach ${pattern}. Open the extension options and press "Grant access".`,
+      `Add2Arr is not allowed to reach ${pattern}. Open the extension options and press "Connect & load settings".`,
       { code: 'no_permission' }
     );
   }

@@ -76,7 +76,7 @@ async function connect(panel, service) {
   // Must run inside the click gesture, before any other await.
   const granted = await chrome.permissions.request({ origins: [pattern] });
   if (!granted) {
-    setStatus(status, `Access to ${pattern} was denied. AddToArr cannot reach the server without it.`, 'err');
+    setStatus(status, `Access to ${pattern} was denied. Add2Arr cannot reach the server without it.`, 'err');
     return;
   }
 

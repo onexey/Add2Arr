@@ -1,7 +1,7 @@
-/* Shared UI + page-observation helpers for AddToArr content scripts. */
+/* Shared UI + page-observation helpers for Add2Arr content scripts. */
 (() => {
-  if (window.__addToArrUiLoaded) return;
-  window.__addToArrUiLoaded = true;
+  if (window.__add2ArrUiLoaded) return;
+  window.__add2ArrUiLoaded = true;
 
   const STYLES = `
     :host { all: initial; }
@@ -99,7 +99,7 @@
   class Widget {
     constructor() {
       this.host = document.createElement('div');
-      this.host.id = 'addtoarr-root';
+      this.host.id = 'add2arr-root';
       this.host.style.display = 'inline-flex';
       this.host.style.verticalAlign = 'middle';
       this.shadow = this.host.attachShadow({ mode: 'open' });
@@ -288,5 +288,5 @@
     return { widget, tick };
   }
 
-  window.AddToArr = { createController, send };
+  window.Add2Arr = { createController, send };
 })();

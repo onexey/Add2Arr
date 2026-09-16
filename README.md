@@ -1,4 +1,4 @@
-# AddToArr
+# Add2Arr
 
 A Chromium browser extension (Manifest V3) that adds a one-click **Add to Radarr / Sonarr**
 button to IMDb and Trakt.tv pages.
