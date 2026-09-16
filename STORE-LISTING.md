@@ -161,8 +161,8 @@ the button, since that is the whole product:
 2. `imdb-movie-in-radarr.png` — the same film showing the green "In Radarr" state.
 3. `trakt-series-add-to-sonarr.png` — "Add to Sonarr" on a Trakt show.
 4. `trakt-series-in-sonarr.png` — the green "In Sonarr" state on Trakt.
-5. A screenshot of the **options page**, connected, with the quality profile and root
-   folder dropdowns populated. **TODO** — blur or replace the API key first.
+5. `options-configured.png` — the options page connected to both servers, with the quality
+   profile and root folder dropdowns populated.
 
 Also available: `imdb-series-add-to-sonarr.png`, `trakt-movie-add-to-radarr.png`,
 `trakt-movie-in-radarr.png`, and `trakt-not-configured.png` (the "Set up Sonarr" prompt).

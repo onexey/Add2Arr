@@ -26,7 +26,7 @@ case "$site" in
   imdb)    fx=0.0851; fy=0.1791; fw=0.8268; fh=0.8209; pad=000000 ;;
   trakt)   fx=0.1400; fy=0.1337; fw=0.8400; fh=0.8642; pad=FFFFFF ;;
   # Frames the heading plus the first settings card.
-  options) fx=0.1078; fy=0.0199; fw=0.7843; fh=0.6642; pad=F6F7F9 ;;
+  options) fx=0.1448; fy=0.0287; fw=0.7105; fh=0.6395; pad=F6F7F9 ;;
   *) echo "error: unknown site '$site' (expected imdb, trakt or options)" >&2; exit 1 ;;
 esac
 
