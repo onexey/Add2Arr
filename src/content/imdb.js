@@ -85,19 +85,32 @@
     };
   }
 
+  // Preferred spot: inline inside the metadata list, right after the
+  // year / certificate / runtime items.
   const ANCHORS = [
-    '[data-testid="hero-title-block__metadata"]',
-    'h1[data-testid="hero__pageTitle"]',
-    '[data-testid="hero-title-block__title"]'
+    { selector: 'ul[data-testid="hero-title-block__metadata"]', mode: 'inside', margin: '0 0 0 16px' },
+    { selector: '[data-testid="hero-title-block__metadata"]', mode: 'inside', margin: '0 0 0 16px' },
+    { selector: 'h1[data-testid="hero__pageTitle"]', mode: 'after', margin: '10px 0 4px' },
+    { selector: '[data-testid="hero-title-block__title"]', mode: 'after', margin: '10px 0 4px' }
   ];
 
   function mount(host) {
     if (host.isConnected) return true;
-    for (const selector of ANCHORS) {
+    for (const { selector, mode, margin } of ANCHORS) {
       const anchor = document.querySelector(selector);
       if (!anchor || !anchor.parentElement) continue;
-      host.style.margin = '8px 0 4px';
-      anchor.insertAdjacentElement('afterend', host);
+      host.style.margin = margin;
+      if (mode === 'inside') {
+        host.dataset.compact = '';
+        host.style.alignSelf = 'center';
+        host.style.flex = 'none';
+        anchor.appendChild(host);
+      } else {
+        delete host.dataset.compact;
+        host.style.alignSelf = '';
+        host.style.flex = '';
+        anchor.insertAdjacentElement('afterend', host);
+      }
       return true;
     }
     return false;

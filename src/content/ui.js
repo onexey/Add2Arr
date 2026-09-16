@@ -5,6 +5,9 @@
 
   const STYLES = `
     :host { all: initial; }
+    :host([data-compact]) button { height: 28px; padding: 0 11px; border-radius: 5px; font-size: 12px; }
+    :host([data-compact]) .wrap { gap: 6px; }
+    :host([data-compact]) .note { max-width: 200px; }
     .wrap {
       display: inline-flex;
       align-items: center;
