@@ -4,25 +4,30 @@
 # 1280x800 PNG suitable for the Chrome Web Store.
 #
 # Usage:
-#   scripts/crop-screenshot.sh imdb  screenshots/raw.jpeg screenshots/store/out.png
-#   scripts/crop-screenshot.sh trakt screenshots/raw.jpeg screenshots/store/out.png
+#   scripts/crop-screenshot.sh imdb    screenshots/raw.jpeg screenshots/store/out.png
+#   scripts/crop-screenshot.sh trakt   screenshots/raw.jpeg screenshots/store/out.png
+#   scripts/crop-screenshot.sh options screenshots/raw.png  screenshots/store/out.png
 #
 # Crop regions are expressed as fractions of the source image, so any capture of
 # a full Chrome window with the same toolbars will crop correctly regardless of
-# resolution. The crop removes all browser chrome — tab bar, address bar and
-# bookmarks bar — so no personal data ends up in a published screenshot.
+# resolution. The imdb/trakt crops remove all browser chrome — tab bar, address
+# bar and bookmarks bar — so no personal data ends up in a published screenshot.
+# The `options` mode expects a full-page capture of the extension's own options
+# page, which has no browser chrome to begin with.
 #
 # Requires macOS `sips`.
 set -euo pipefail
 
-site="${1:?usage: crop-screenshot.sh <imdb|trakt> <input> <output>}"
-in="${2:?usage: crop-screenshot.sh <imdb|trakt> <input> <output>}"
-out="${3:?usage: crop-screenshot.sh <imdb|trakt> <input> <output>}"
+site="${1:?usage: crop-screenshot.sh <imdb|trakt|options> <input> <output>}"
+in="${2:?usage: crop-screenshot.sh <imdb|trakt|options> <input> <output>}"
+out="${3:?usage: crop-screenshot.sh <imdb|trakt|options> <input> <output>}"
 
 case "$site" in
-  imdb)  fx=0.0851; fy=0.1791; fw=0.8268; fh=0.8209; pad=000000 ;;
-  trakt) fx=0.1400; fy=0.1337; fw=0.8400; fh=0.8642; pad=FFFFFF ;;
-  *) echo "error: unknown site '$site' (expected imdb or trakt)" >&2; exit 1 ;;
+  imdb)    fx=0.0851; fy=0.1791; fw=0.8268; fh=0.8209; pad=000000 ;;
+  trakt)   fx=0.1400; fy=0.1337; fw=0.8400; fh=0.8642; pad=FFFFFF ;;
+  # Frames the heading plus the first settings card.
+  options) fx=0.1078; fy=0.0199; fw=0.7843; fh=0.6642; pad=F6F7F9 ;;
+  *) echo "error: unknown site '$site' (expected imdb, trakt or options)" >&2; exit 1 ;;
 esac
 
 [[ -f "$in" ]] || { echo "error: $in not found" >&2; exit 1; }
